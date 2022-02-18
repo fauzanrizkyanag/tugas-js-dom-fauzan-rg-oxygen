@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="register-form-div" id="register-form-div">
+        <h3>Register</h3>
+        <div id="notice" class="notice"></div>
+        <form id="register-form"> 
+            <p>Username</p>
+            <input id="username" name="username" type="text" placeholder="Username"/>
+            <p>Password</p>
+            <input id="password" name="password" type="password" placeholder="Password"/><br>
+            <input id="register" class="form-submit" type="submit" value="Register"/> 
+        </form>
+        <a href="login.html">Login</a>
+    </div>
+</body>
+<script>
+    const form =  document.getElementById("register-form")
+    const username =  document.getElementById("username")
+    const password =  document.getElementById("password")
+    form.addEventListener("submit", function(event){
+        event.preventDefault()
+        if (username.value == "" || password.value == "") {
+            document.getElementById("notice").innerHTML = "<small>Harap mengisi form dengan lengkap</small>"
+        } else {
+            const formData = new FormData(form)
+            const values = Object.fromEntries(formData)
+            localStorage.setItem('user', [values.username, values.password]);
+            alert("Berhasil Registrasi")
+            location.replace("login.html")
+        }
+    })
+</script>
+</html>

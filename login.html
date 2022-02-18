@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-form-div" id="login-form-div">
+        <h3>Login</h3>
+        <div id="notice" class="notice"></div>
+        <form id="login-form"> 
+            <p>Username</p>
+            <input id="username" name="username" type="text" placeholder="Username"/>
+            <p>Password</p>
+            <input id="password" name="password" type="password" placeholder="Password"/><br>
+            <input id="login" class="form-submit" type="submit" value="Login"/> 
+        </form>
+        <a href="register.html">Register</a>
+    </div>
+</body>
+<script>
+    if (localStorage.getItem("session") != null) {
+        location.replace("home.html")
+    }
+    const form =  document.getElementById("login-form")
+    const username =  document.getElementById("username")
+    const password =  document.getElementById("password")
+    const user = localStorage.getItem('user').split(",")
+    form.addEventListener("submit", function(event){
+        event.preventDefault()
+
+        if (username.value == "" || password.value == "") {
+            document.getElementById("notice").innerHTML = "<small>Harap mengisi form dengan lengkap</small>"
+        } else if (username.value != user[0]) {
+            document.getElementById("notice").innerHTML = "<small>Username tidak terdaftar</small>"
+        } else if (password.value != user[1]) {
+            document.getElementById("notice").innerHTML = "<small>Password salah</small>"
+        } else{
+            localStorage.setItem('session', user[0])
+            alert("Berhasil login")
+            location.replace("home.html")
+        }
+    })
+</script>
+</html>
